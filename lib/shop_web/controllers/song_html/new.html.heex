@@ -1,0 +1,8 @@
+<.header>
+  New Song
+  <:subtitle>Use this form to manage song records in your database.</:subtitle>
+</.header>
+
+<.song_form changeset={@changeset} action={~p"/songs"} />
+
+<.back navigate={~p"/songs"}>Back to songs</.back>

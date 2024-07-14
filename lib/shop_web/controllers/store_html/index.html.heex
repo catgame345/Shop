@@ -1,0 +1,38 @@
+<main class="flex font-mono">
+  <%= for product <- @products do %>
+    <button popovertarget={"show_#{product.id}"}>
+    <div class="border border-sky-900 text-center bg-sky-500 font-mono ml-14">
+      <div class="flex justify-center pt-6 px-2">
+        <img src={"#{product.image}"} width="560px" height="560px" />
+      </div>
+      <div class="border border-sky-800 mx-4 mb-2 mt-3 bg-sky-400 font-mono">
+        <h2 class="text-xl"><%= product.product %></h2>
+        <h3 class="mb-2">Price: <%= product.price %></h3>
+      </div>
+    </div>
+    </button>
+
+    <div id={"show_#{product.id}"} popover class="border border-sky-950 bg-sky-700">
+      <div class="border border-sky-950 bg-sky-600 text-center font-mono flex items-center">
+      <div class="py-6 px-4">
+        <img src={"#{product.image}"} class="border border-sky-900" width="280px" height="280px" />
+      </div>
+      <div class="border border-sky-800 mx-4 mb-2 mt-3 bg-sky-500 font-mono px-20 py-5">
+        <h2 class="text-xl font-bold"><%= product.product %></h2>
+        <h3 class="pt-2 pb-2">Price: <%= product.price %></h3>
+        <.button class="px-8">Buy</.button>
+      </div>
+      </div>
+    </div>
+  <% end %>
+</main>
+
+<style>
+  [popover]::backdrop {
+    background-color: rgb(7 89 133);
+  }
+
+  [popover] {
+    padding: 2rem;
+  }
+</style>

@@ -1,0 +1,57 @@
+<.header>
+  <h1 class="text-3xl font-bold">
+    Listing Products
+  </h1>
+  <:actions>
+    <.link patch={~p"/products/new"}>
+      <.button>New Product</.button>
+    </.link>
+    <.link navigate={~p"/shop"}>
+      <.button>Store</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="products"
+  rows={@streams.products}
+  row_click={fn {_id, product} -> JS.navigate(~p"/products/#{product}") end}
+>
+  
+  <:col :let={{_id, product}} label="Products">
+    <div class="border border-emerald-900 text-center bg-emerald-500 font-mono">
+      <div class="flex justify-center pt-4">
+        <img src={"#{product.image}"} width="360px" height="560px"  />
+      </div>
+      <div class="border border-emerald-800 mx-4 mb-2 mt-3 bg-emerald-400 font-mono">
+        <h2 class="text-xl"><%= product.product %></h2>
+        <h3 class="mb-2">Price: <%= product.price %></h3>
+      </div>
+    </div>
+  </:col>
+  <:action :let={{_id, product}}>
+    <div class="sr-only">
+      <.link navigate={~p"/products/#{product}"}>Show</.link>
+    </div>
+    <.link patch={~p"/products/#{product}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, product}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: product.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="product-modal" show on_cancel={JS.patch(~p"/products")}>
+  <.live_component
+    module={ShopWeb.ProductLive.FormComponent}
+    id={@product.id || :new}
+    title={@page_title}
+    action={@live_action}
+    product={@product}
+    patch={~p"/products"}
+  />
+</.modal>

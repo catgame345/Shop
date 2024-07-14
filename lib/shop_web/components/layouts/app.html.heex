@@ -1,0 +1,23 @@
+<header class="px-4 sm:px-6 lg:px-8 bg-indigo-700 font-mono">
+  <div class="flex items-center justify-between border-b border-indigo-400 py-3 text-sm">
+    <div class="flex items-center gap-4">
+      <a href="/" class="hover:text-indigo-900">
+        <h1 class="text-2xl font-bold font-mono">CatShop</h1>
+      </a>
+      <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
+        Phoenix v<%= Application.spec(:phoenix, :vsn) %>
+      </p>
+    </div>
+    <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
+      <a href="https://github.com/catgame345" class="hover:text-zinc-700">
+        GitHub
+      </a>
+    </div>
+  </div>
+</header>
+<main class="px-4 py-20 sm:px-6 lg:px-8 bg-indigo-800 font-mono">
+  <div class="mx-auto max-w-2xl">
+    <.flash_group flash={@flash} />
+    <%= @inner_content %>
+  </div>
+</main>
